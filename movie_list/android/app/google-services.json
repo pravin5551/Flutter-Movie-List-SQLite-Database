@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "394892388610",
+    "project_id": "fir-yellow-class",
+    "storage_bucket": "fir-yellow-class.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394892388610:android:7c9474fb2676acb3f67a1b",
+        "android_client_info": {
+          "package_name": "com.example.movie_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394892388610-8eouju27ngbec5b9lc9hg3kid8q6r4cs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.movie_list",
+            "certificate_hash": "b6bf35c84106a7bd5fd9165604e92636d69e0bd6"
+          }
+        },
+        {
+          "client_id": "394892388610-lca1hdja0nt2ckcjmursuiruo3vfcdp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD6fIewwtOz2D1TQcIz2UqcacGYzYFzKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394892388610-lca1hdja0nt2ckcjmursuiruo3vfcdp6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
