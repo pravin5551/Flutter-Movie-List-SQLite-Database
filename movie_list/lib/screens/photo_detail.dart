@@ -1,15 +1,14 @@
-import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:movie_list/models/note.dart';
+import 'package:movie_list/models/photo.dart';
 import 'package:movie_list/utils/database_helper.dart';
+import 'package:movie_list/utils/util.dart';
 
 class NoteDetail extends StatefulWidget {
 
 	final String appBarTitle;
-	final Note note;
+	final Photo note;
 
 	NoteDetail(this. note, this.appBarTitle);
 
@@ -22,15 +21,15 @@ class NoteDetail extends StatefulWidget {
 
 class NoteDetailState extends State<NoteDetail> {
 
-	static var _priorities = ['High', 'Low'];
 
 	DatabaseHelper helper = DatabaseHelper();
 
 	String appBarTitle;
-	Note note;
+	Photo note;
 
 	TextEditingController titleController = TextEditingController();
 	TextEditingController descriptionController = TextEditingController();
+	String imageString;
 
 	NoteDetailState(this.note, this.appBarTitle);
 
@@ -67,35 +66,15 @@ class NoteDetailState extends State<NoteDetail> {
 			    children: <Widget>[
 
 
-				    // ListTile(
-					  //   title: DropdownButton(
-						// 	    items: _priorities.map((String dropDownStringItem) {
-						// 	    	return DropdownMenuItem<String> (
-						// 			    value: dropDownStringItem,
-						// 			    child: Text(dropDownStringItem),
-						// 		    );
-						// 	    }).toList(),
-						//
-						// 	    style: textStyle,
-						//
-						// 	    value: getPriorityAsString(note.priority),
-						//
-						// 	    onChanged: (valueSelectedByUser) {
-						// 	    	setState(() {
-						// 	    	  debugPrint('User selected $valueSelectedByUser');
-						// 	    	  updatePriorityAsInt(valueSelectedByUser);
-						// 	    	});
-						// 	    }
-					  //   ),
-				    // ),
-
 						// First Element
 						Image.asset('assets/logos/google.jpg'),
 
 				    //Second Element
 						ElevatedButton(onPressed: (){
-							pickImageFromGallary();
-						}, child: Text("Add Movie Image")
+							updateImage();
+
+						}, child: Text("Add Movie Image"),
+
 						),
 
 				    // Third Element
@@ -194,30 +173,9 @@ class NoteDetailState extends State<NoteDetail> {
 		Navigator.pop(context, true);
   }
 
-	// Convert the String priority in the form of integer before saving it to Database
-	void updatePriorityAsInt(String value) {
-		switch (value) {
-			case 'High':
-				note.priority = 1;
-				break;
-			case 'Low':
-				note.priority = 2;
-				break;
-		}
-	}
 
-	// Convert int priority to String priority and display it to user in DropDown
-	String getPriorityAsString(int value) {
-		String priority;
-		switch (value) {
-			case 1:
-				priority = _priorities[0];  // 'High'
-				break;
-			case 2:
-				priority = _priorities[1];  // 'Low'
-				break;
-		}
-		return priority;
+	void updateImage(){
+
 	}
 
 	// Update the title of Note object
@@ -244,9 +202,9 @@ class NoteDetailState extends State<NoteDetail> {
 		}
 
 		if (result != 0) {  // Success
-			_showAlertDialog('Status', 'Note Saved Successfully');
+			_showAlertDialog('Status', 'Movie Saved Successfully');
 		} else {  // Failure
-			_showAlertDialog('Status', 'Problem Saving Note');
+			_showAlertDialog('Status', 'Problem Saving Movie');
 		}
 
 	}
@@ -258,16 +216,16 @@ class NoteDetailState extends State<NoteDetail> {
 		// Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
 		// the detail page by pressing the FAB of NoteList page.
 		if (note.id == null) {
-			_showAlertDialog('Status', 'No Note was deleted');
+			_showAlertDialog('Status', 'No Movie was deleted');
 			return;
 		}
 
 		// Case 2: User is trying to delete the old note that already has a valid ID.
 		int result = await helper.deleteNote(note.id);
 		if (result != 0) {
-			_showAlertDialog('Status', 'Note Deleted Successfully');
+			_showAlertDialog('Status', 'Movie Deleted Successfully');
 		} else {
-			_showAlertDialog('Status', 'Error Occured while Deleting Note');
+			_showAlertDialog('Status', 'Error Occurred while Deleting Movie');
 		}
 	}
 
@@ -283,12 +241,7 @@ class NoteDetailState extends State<NoteDetail> {
 		);
 	}
 
-	pickImageFromGallary() {
-		ImagePicker.pickImage(source: ImageSource.gallery).then((imageFile){
-			String imageString = Util
-		});
 
-	}
 
 }
 

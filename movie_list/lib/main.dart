@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_list/screens/login_screen.dart';
-import 'package:movie_list/screens/note_list.dart';
+import 'package:movie_list/screens/photo_list.dart';
 
 void main() {
   runApp(MyApp());
