@@ -56,42 +56,7 @@ class FormHelper {
     );
   }
 
-  // static Widget selectDropdown(
-  //     BuildContext context,
-  //     Object initialValue,
-  //     dynamic data,
-  //     Function onChanged, {
-  //       Function onValidate,
-  //     }) {
-  //   return Container(
-  //     height: 75,
-  //     padding: EdgeInsets.only(top: 5),
-  //     child: new DropdownButtonFormField<String>(
-  //       hint: new Text("Select"),
-  //       value: initialValue != null ? initialValue.toString() : null,
-  //       isDense: true,
-  //       onChanged: (String newValue) {
-  //         FocusScope.of(context).requestFocus(new FocusNode());
-  //         onChanged(newValue);
-  //       },
-  //       validator: (value) {
-  //         return onValidate(value);
-  //       },
-  //       decoration: fieldDecoration(context, "", ""),
-  //       items: data.map<DropdownMenuItem<String>>(
-  //             (CategoryModel data) {
-  //           return DropdownMenuItem<String>(
-  //             value: data.categoryId.toString(),
-  //             child: new Text(
-  //               data.categoryName,
-  //               style: new TextStyle(color: Colors.black),
-  //             ),
-  //           );
-  //         },
-  //       ).toList(),
-  //     ),
-  //   );
-  // }
+
 
   static Widget fieldLabel(String labelName) {
     return new Padding(

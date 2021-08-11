@@ -41,26 +41,30 @@ class DatabaseHelper {
 		String path = directory.path + 'notes.db';
 
 		// Open/create the database at a given path
-		var notesDatabase = await openDatabase(path, version: 1, onCreate: _createDb);
-		return notesDatabase;
+		var photoDatabase = await openDatabase(path, version: 1, onCreate: _createDb);
+		return photoDatabase;
 	}
 
 	void _createDb(Database db, int newVersion) async {
 
 		await db.execute('CREATE TABLE $photoTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
-					'$colDirector TEXT, $colImage STRING, $colDate TEXT)');
+					'$colDirector TEXT, $colImage String, $colDate TEXT)');
 	}
 
-	// Fetch Operation: Get all note objects from database
-	Future<List<Map<String, dynamic>>> getNoteMapList() async {
+	// Fetch Operation: Get all photo objects from database
+	Future<List<Map<String, dynamic>>> getPhotoMapList() async {
 		Database db = await this.database;
 
   //		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
-		var result = await db.query(photoTable, orderBy: '$colImage ASC');
+
+		//Old statement
+		// 	var result = await db.query(photoTable, orderBy: '$colImage ASC');
+
+		var result = await db.query(photoTable);
 		return result;
 	}
 
-	// Insert Operation: Insert a Note object to database
+	// Insert Operation: Insert a Photo object to database
 	Future<int> insertNote(Photo note) async {
 		Database db = await this.database;
 		var result = await db.insert(photoTable, note.toMap());
@@ -75,7 +79,7 @@ class DatabaseHelper {
 	}
 
 	// Delete Operation: Delete a Note object from database
-	Future<int> deleteNote(int id) async {
+	Future<int> deletePhoto(int id) async {
 		var db = await this.database;
 		int result = await db.rawDelete('DELETE FROM $photoTable WHERE $colId = $id');
 		return result;
@@ -92,7 +96,7 @@ class DatabaseHelper {
 	// Get the 'Map List' [ List<Map> ] and convert it to 'Note List' [ List<Note> ]
 	Future<List<Photo>> getNoteList() async {
 
-		var noteMapList = await getNoteMapList(); // Get 'Map List' from database
+		var noteMapList = await getPhotoMapList(); // Get 'Map List' from database
 		int count = noteMapList.length;         // Count the number of map entries in db table
 
 		List<Photo> photoList = List<Photo>();

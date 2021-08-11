@@ -40,7 +40,7 @@ class NoteListState extends State<NoteList> {
 	    floatingActionButton: FloatingActionButton(
 		    onPressed: () {
 		      debugPrint('FAB clicked');
-		      navigateToDetail(Photo('', ''), 'Add Movie');
+		      navigateToDetail(Photo('', '','assets/logos/google.jpg'), 'Add Movie');
 		    },
 
 		    tooltip: 'Add Movie',
@@ -61,17 +61,18 @@ class NoteListState extends State<NoteList> {
 				return Card(
 					color: Colors.white,
 					elevation: 2.0,
+
 					child: ListTile(
 
 						leading: CircleAvatar(
-							backgroundColor: Colors.yellow,			//getPriorityColor(this.noteList[position].priority),
-							child:Image.asset("assets/logos/google.jpg"),						//getPriorityIcon(this.noteList[position].priority),
+							backgroundColor: Colors.yellow,
+							child:Image.network(this.noteList[position].movieImage),
 
 						),
 
 						title: Text(this.noteList[position].movieTitle, style: titleStyle,),
 
-						subtitle: Text(this.noteList[position].date),
+						subtitle: Text(this.noteList[position].director),
 
 						trailing: GestureDetector(
 							child: Icon(Icons.delete, color: Colors.grey,),
@@ -96,7 +97,7 @@ class NoteListState extends State<NoteList> {
 
 	void _delete(BuildContext context, Photo note) async {
 
-		int result = await databaseHelper.deleteNote(note.id);
+		int result = await databaseHelper.deletePhoto(note.id);
 		if (result != 0) {
 			_showSnackBar(context, 'Movie Deleted Successfully');
 			updateListView();

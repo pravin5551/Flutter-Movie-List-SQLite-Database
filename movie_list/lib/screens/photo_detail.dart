@@ -9,14 +9,14 @@ import 'package:movie_list/utils/util.dart';
 class NoteDetail extends StatefulWidget {
 
 	final String appBarTitle;
-	final Photo note;
+	final Photo photo;
 
-	NoteDetail(this. note, this.appBarTitle);
+	NoteDetail(this.photo, this.appBarTitle);
 
 	@override
   State<StatefulWidget> createState() {
 
-    return NoteDetailState(this.note, this.appBarTitle);
+    return NoteDetailState(this.photo, this.appBarTitle);
   }
 }
 
@@ -26,23 +26,27 @@ class NoteDetailState extends State<NoteDetail> {
 	DatabaseHelper helper = DatabaseHelper();
 
 	String appBarTitle;
-	Photo note;
+	Photo photo;
 
 	TextEditingController titleController = TextEditingController();
 	TextEditingController descriptionController = TextEditingController();
-	String imageString;
+	TextEditingController movieimageController = TextEditingController();
 
-	NoteDetailState(this.note, this.appBarTitle);
+	// String imageString;
+
+	NoteDetailState(this.photo, this.appBarTitle);
 
 	@override
   Widget build(BuildContext context) {
 
 		TextStyle textStyle = Theme.of(context).textTheme.title;
 
-		titleController.text = note.movieTitle;
-		descriptionController.text = note.director;
+		titleController.text = photo.movieTitle;
+		descriptionController.text = photo.director;
+		movieimageController.text = photo.movieImage;
 
-    return WillPopScope(
+
+		return WillPopScope(
 
 	    onWillPop: () {
 	    	// Write some code to control things, when user press Back navigation button in device navigationBar
@@ -72,12 +76,12 @@ class NoteDetailState extends State<NoteDetail> {
 
 				    //Second Element
 						FormHelper.picPicker(
-							// model.productPic,
-							" ",
+							photo.movieImage,
+
 									(file) => {
 								setState(
 											() {
-										// "model.productPic" = file.path;
+												photo.movieImage= file.path;
 									},
 								)
 							},
@@ -104,7 +108,27 @@ class NoteDetailState extends State<NoteDetail> {
 					    ),
 				    ),
 
-				    // Fourth Element
+						// Fourth Element
+						Padding(
+							padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+							child: TextField(
+								controller: movieimageController,
+								style: textStyle,
+								onChanged: (value) {
+									debugPrint('Something changed in Image link Field');
+									updateImage();
+								},
+								decoration: InputDecoration(
+										labelText: 'Movie Image link',
+										labelStyle: textStyle,
+										border: OutlineInputBorder(
+												borderRadius: BorderRadius.circular(5.0)
+										)
+								),
+							),
+						),
+
+				    // Fifth Element
 				    Padding(
 					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
 					    child: TextField(
@@ -124,7 +148,7 @@ class NoteDetailState extends State<NoteDetail> {
 					    ),
 				    ),
 
-				    // Fifth Element
+				    // Sixth Element
 				    Padding(
 					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
 					    child: Row(
@@ -182,17 +206,17 @@ class NoteDetailState extends State<NoteDetail> {
 
 
 	void updateImage(){
-
+		photo.movieImage = movieimageController.text;
 	}
 
 	// Update the title of Note object
   void updateTitle(){
-    note.movieTitle = titleController.text;
+    photo.movieTitle = titleController.text;
   }
 
 	// Update the description of Note object
 	void updateDescription() {
-		note.director = descriptionController.text;
+		photo.director = descriptionController.text;
 	}
 
 	// Save data to database
@@ -200,12 +224,12 @@ class NoteDetailState extends State<NoteDetail> {
 
 		moveToLastScreen();
 
-		note.date = DateFormat.yMMMd().format(DateTime.now());
+		photo.date = DateFormat.yMMMd().format(DateTime.now());
 		int result;
-		if (note.id != null) {  // Case 1: Update operation
-			result = await helper.updateNote(note);
+		if (photo.id != null) {  // Case 1: Update operation
+			result = await helper.updateNote(photo);
 		} else { // Case 2: Insert Operation
-			result = await helper.insertNote(note);
+			result = await helper.insertNote(photo);
 		}
 
 		if (result != 0) {  // Success
@@ -222,13 +246,13 @@ class NoteDetailState extends State<NoteDetail> {
 
 		// Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
 		// the detail page by pressing the FAB of NoteList page.
-		if (note.id == null) {
+		if (photo.id == null) {
 			_showAlertDialog('Status', 'No Movie was deleted');
 			return;
 		}
 
 		// Case 2: User is trying to delete the old note that already has a valid ID.
-		int result = await helper.deleteNote(note.id);
+		int result = await helper.deletePhoto(photo.id);
 		if (result != 0) {
 			_showAlertDialog('Status', 'Movie Deleted Successfully');
 		} else {
@@ -253,7 +277,7 @@ class NoteDetailState extends State<NoteDetail> {
 			alignment: Alignment.center,
 			child: InkWell(
 				onTap: () {
-
+					updateImage();
 				},
 				child: Container(
 					height: 40.0,

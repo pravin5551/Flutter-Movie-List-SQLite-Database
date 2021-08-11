@@ -5,11 +5,12 @@ class Photo {
 	String _movieTitle;
 	String _director;
 	String _date;
+	String _movieImage;
 
 
-	Photo(this._movieTitle, this._date,  [this._director]);//square bracket for keeping _director a optional
+	Photo(this._movieTitle, this._date,this._movieImage,  [this._director]);//square bracket for keeping _director a optional
 
-	Photo.withId(this._id, this._movieTitle, this._date,  [this._director]);
+	Photo.withId(this._id, this._movieTitle, this._date,this._movieImage,  [this._director]);
 
 	int get id => _id;
 
@@ -17,11 +18,11 @@ class Photo {
 
 	String get director => _director;
 
-	// String get image => _image;
+	String get movieImage => _movieImage;
 
 	String get date => _date;
 
-	//Here i'm giving priority that length of title should be less than 255 characters
+	//Here i'm giving priority that length of MovieName should be less than 255 characters
 	set movieTitle(String newTitle) {
 		if (newTitle.length <= 255) {
 			this._movieTitle = newTitle;
@@ -34,10 +35,10 @@ class Photo {
 		}
 	}
 
-	// set image(String newImage) {
-	//
-	// 		this._image = newImage;
-	// }
+	set movieImage(String newImage) {
+
+			this._movieImage = newImage;
+	}
 
 	set date(String newDate) {
 		this._date = newDate;
@@ -52,7 +53,7 @@ class Photo {
 		}
 		map['title'] = _movieTitle;
 		map['description'] = _director;
-		// map['image'] = _image;
+		map['image'] = _movieImage;
 		map['date'] = _date;
 
 		return map;
@@ -63,7 +64,7 @@ class Photo {
 		this._id = map['id'];
 		this._movieTitle = map['title'];
 		this._director = map['description'];
-		// this._image = map['image'];
+		this._movieImage = map['image'];
 		this._date = map['date'];
 	}
 }
