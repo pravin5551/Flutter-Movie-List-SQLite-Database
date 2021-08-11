@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -73,20 +75,28 @@ class NoteDetailState extends State<NoteDetail> {
 
 						// First Element
 						// Image.asset('assets/logos/google.jpg'),
+						//  Image.asset(photo.movieImage, height: 300,width: 300,),
+						Utility.imageFromBase64String(photo.movieImage),
 
 				    //Second Element
-						FormHelper.picPicker(
-							photo.movieImage,
-
-									(file) => {
-								setState(
-											() {
-												photo.movieImage= file.path;
-									},
-								)
+						IconButton(
+							icon: Icon(Icons.add),
+							onPressed: () {
+								pickImageFromGallery();
 							},
 						),
-						btnSubmit(),
+						// FormHelper.picPicker(
+						// 	photo.movieImage,
+						//
+						// 			(file) => {
+						// 		setState(
+						// 					() {
+						// 						photo.movieImage= file.path;
+						// 			},
+						// 		)
+						// 	},
+						// ),
+						// btnSubmit(),
 
 				    // Third Element
 				    Padding(
@@ -108,25 +118,7 @@ class NoteDetailState extends State<NoteDetail> {
 					    ),
 				    ),
 
-						// Fourth Element
-						Padding(
-							padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-							child: TextField(
-								controller: movieimageController,
-								style: textStyle,
-								onChanged: (value) {
-									debugPrint('Something changed in Image link Field');
-									updateImage();
-								},
-								decoration: InputDecoration(
-										labelText: 'Movie Image link',
-										labelStyle: textStyle,
-										border: OutlineInputBorder(
-												borderRadius: BorderRadius.circular(5.0)
-										)
-								),
-							),
-						),
+
 
 				    // Fifth Element
 				    Padding(
@@ -296,6 +288,14 @@ class NoteDetailState extends State<NoteDetail> {
 				),
 			),
 		);
+	}
+
+	pickImageFromGallery() {
+		ImagePicker.pickImage(source: ImageSource.gallery).then((imgFile) {
+			String imgString = Utility.base64String(imgFile.readAsBytesSync());
+			photo.movieImage =imgString;
+
+		});
 	}
 
 

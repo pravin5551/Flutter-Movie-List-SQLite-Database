@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_list/models/photo.dart';
 import 'package:movie_list/screens/photo_detail.dart';
 import 'package:movie_list/utils/database_helper.dart';
+import 'package:movie_list/utils/util.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -40,7 +41,7 @@ class NoteListState extends State<NoteList> {
 	    floatingActionButton: FloatingActionButton(
 		    onPressed: () {
 		      debugPrint('FAB clicked');
-		      navigateToDetail(Photo('', '','assets/logos/google.jpg'), 'Add Movie');
+		      navigateToDetail(Photo('', '',''), 'Add Movie');
 		    },
 
 		    tooltip: 'Add Movie',
@@ -58,37 +59,100 @@ class NoteListState extends State<NoteList> {
 		return ListView.builder(
 			itemCount: count,
 			itemBuilder: (BuildContext context, int position) {
-				return Card(
-					color: Colors.white,
-					elevation: 2.0,
+				return  Card(
+					elevation: 5,
+					child: Row(
+						children: <Widget>[
+						 Container(
+									height: 200,
+									width: 150,
+									child: Utility.imageFromBase64String(this.noteList[position].movieImage),
+								),
 
-					child: ListTile(
+							Container(
+								padding: const EdgeInsets.all(10),
+								height: 80,
+								child: Column(
+									crossAxisAlignment: CrossAxisAlignment.start,
+									children: <Widget>[
+										Text(
+											this.noteList[position].movieTitle,
+											style: TextStyle(
+												fontSize: 16,
+												fontWeight: FontWeight.bold,
+											),
+										),
+										SizedBox(
+											height: 10,
+										),
+										Container(
+											width: 80,
+											child: Text(
+												this.noteList[position].director,
+											),
+										),
+									],
+								),
+							),
+							Container(
+								padding: const EdgeInsets.all(10),
+								height: 150,
+								child: Column(
+									crossAxisAlignment: CrossAxisAlignment.start,
+									children: <Widget>[
+										// Icon(Icons.delete, color: Colors.grey,),
+										//
+										//
+										TextButton(onPressed: (){
+							_delete(context, noteList[position]);
+							}, child: Icon(Icons.delete, color: Colors.grey,)),
 
-						leading: CircleAvatar(
-							backgroundColor: Colors.yellow,
-							child:Image.network(this.noteList[position].movieImage),
+										SizedBox(
+											height: 10,
+										),
 
-						),
-
-						title: Text(this.noteList[position].movieTitle, style: titleStyle,),
-
-						subtitle: Text(this.noteList[position].director),
-
-						trailing: GestureDetector(
-							child: Icon(Icons.delete, color: Colors.grey,),
-							onTap: () {
-								_delete(context, noteList[position]);
-							},
-						),
-
-
-						onTap: () {
-							debugPrint("MovieTile Tapped");
-							navigateToDetail(this.noteList[position],'Edit Movie');
-						},
-
+										TextButton(onPressed: (){
+											navigateToDetail(this.noteList[position],'Edit Movie');
+										},child: Icon(Icons.edit, color: Colors.grey,)
+										)
+									],
+								),
+							),
+						],
 					),
 				);
+
+				// 	Card(
+				// 	color: Colors.white,
+				// 	elevation: 2.0,
+				//
+				// 	child: ListTile(
+				//
+				// 		leading: CircleAvatar(
+				// 			backgroundColor: Colors.yellow,
+				// 			child:Utility.imageFromBase64String(this.noteList[position].movieImage),
+				//
+				// 		),
+				//
+				// 		title: Text(this.noteList[position].movieTitle, style: titleStyle,),
+				//
+				// 		subtitle: Text(this.noteList[position].director),
+				//
+				// 		trailing: GestureDetector(
+				// 			child: Icon(Icons.delete, color: Colors.grey,),
+				// 			onTap: () {
+				// 				_delete(context, noteList[position]);
+				// 			},
+				// 		),
+				//
+				//
+				// 		onTap: () {
+				// 			debugPrint("MovieTile Tapped");
+				// 			navigateToDetail(this.noteList[position],'Edit Movie');
+				// 		},
+				//
+				// 	),
+				// );
 			},
 		);
   }
