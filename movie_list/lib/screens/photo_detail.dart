@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_list/models/photo.dart';
 import 'package:movie_list/utils/database_helper.dart';
+import 'package:movie_list/utils/photo_helper.dart';
 import 'package:movie_list/utils/util.dart';
 
 class NoteDetail extends StatefulWidget {
@@ -38,8 +39,8 @@ class NoteDetailState extends State<NoteDetail> {
 
 		TextStyle textStyle = Theme.of(context).textTheme.title;
 
-		titleController.text = note.title;
-		descriptionController.text = note.description;
+		titleController.text = note.movieTitle;
+		descriptionController.text = note.director;
 
     return WillPopScope(
 
@@ -67,15 +68,21 @@ class NoteDetailState extends State<NoteDetail> {
 
 
 						// First Element
-						Image.asset('assets/logos/google.jpg'),
+						// Image.asset('assets/logos/google.jpg'),
 
 				    //Second Element
-						ElevatedButton(onPressed: (){
-							updateImage();
-
-						}, child: Text("Add Movie Image"),
-
+						FormHelper.picPicker(
+							// model.productPic,
+							" ",
+									(file) => {
+								setState(
+											() {
+										// "model.productPic" = file.path;
+									},
+								)
+							},
 						),
+						btnSubmit(),
 
 				    // Third Element
 				    Padding(
@@ -88,7 +95,7 @@ class NoteDetailState extends State<NoteDetail> {
 						    	updateTitle();
 						    },
 						    decoration: InputDecoration(
-							    labelText: 'Title',
+							    labelText: 'Movie Name',
 							    labelStyle: textStyle,
 							    border: OutlineInputBorder(
 								    borderRadius: BorderRadius.circular(5.0)
@@ -108,7 +115,7 @@ class NoteDetailState extends State<NoteDetail> {
 							    updateDescription();
 						    },
 						    decoration: InputDecoration(
-								    labelText: 'Description',
+								    labelText: 'Director name',
 								    labelStyle: textStyle,
 								    border: OutlineInputBorder(
 										    borderRadius: BorderRadius.circular(5.0)
@@ -180,12 +187,12 @@ class NoteDetailState extends State<NoteDetail> {
 
 	// Update the title of Note object
   void updateTitle(){
-    note.title = titleController.text;
+    note.movieTitle = titleController.text;
   }
 
 	// Update the description of Note object
 	void updateDescription() {
-		note.description = descriptionController.text;
+		note.director = descriptionController.text;
 	}
 
 	// Save data to database
@@ -238,6 +245,32 @@ class NoteDetailState extends State<NoteDetail> {
 		showDialog(
 				context: context,
 				builder: (_) => alertDialog
+		);
+	}
+
+	Widget btnSubmit() {
+		return new Align(
+			alignment: Alignment.center,
+			child: InkWell(
+				onTap: () {
+
+				},
+				child: Container(
+					height: 40.0,
+					margin: EdgeInsets.all(10),
+					width: 100,
+					color: Colors.blueAccent,
+					child: Center(
+						child: Text(
+							"Save Product",
+							style: TextStyle(
+								color: Colors.white,
+								fontWeight: FontWeight.bold,
+							),
+						),
+					),
+				),
+			),
 		);
 	}
 

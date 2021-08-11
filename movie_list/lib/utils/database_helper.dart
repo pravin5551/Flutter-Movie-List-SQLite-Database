@@ -95,13 +95,13 @@ class DatabaseHelper {
 		var noteMapList = await getNoteMapList(); // Get 'Map List' from database
 		int count = noteMapList.length;         // Count the number of map entries in db table
 
-		List<Photo> noteList = List<Photo>();
+		List<Photo> photoList = List<Photo>();
 		// For loop to create a 'Note List' from a 'Map List'
 		for (int i = 0; i < count; i++) {
-			noteList.add(Photo.fromMapObject(noteMapList[i]));
+			photoList.add(Photo.fromMapObject(noteMapList[i]));
 		}
 
-		return noteList;
+		return photoList;
 	}
 
 }

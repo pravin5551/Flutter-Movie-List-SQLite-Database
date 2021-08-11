@@ -7,28 +7,28 @@ class Photo {
 	String _date;
 
 
-	Photo(this._movieTitle, this._date,  [this._director]);//square bracket for keeping description a optional
+	Photo(this._movieTitle, this._date,  [this._director]);//square bracket for keeping _director a optional
 
 	Photo.withId(this._id, this._movieTitle, this._date,  [this._director]);
 
 	int get id => _id;
 
-	String get title => _movieTitle;
+	String get movieTitle => _movieTitle;
 
-	String get description => _director;
+	String get director => _director;
 
 	// String get image => _image;
 
 	String get date => _date;
 
 	//Here i'm giving priority that length of title should be less than 255 characters
-	set title(String newTitle) {
+	set movieTitle(String newTitle) {
 		if (newTitle.length <= 255) {
 			this._movieTitle = newTitle;
 		}
 	}
 
-	set description(String newDescription) {
+	set director(String newDescription) {
 		if (newDescription.length <= 255) {
 			this._director = newDescription;
 		}

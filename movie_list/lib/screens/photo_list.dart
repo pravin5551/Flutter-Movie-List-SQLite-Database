@@ -69,7 +69,7 @@ class NoteListState extends State<NoteList> {
 
 						),
 
-						title: Text(this.noteList[position].title, style: titleStyle,),
+						title: Text(this.noteList[position].movieTitle, style: titleStyle,),
 
 						subtitle: Text(this.noteList[position].date),
 
