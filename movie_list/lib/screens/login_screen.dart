@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movie_list/screens/photo_list.dart';
 import 'package:movie_list/screens/signup_screen.dart';
+import 'package:movie_list/service/service.dart';
 import 'package:movie_list/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
   bool isUploaded = false;
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   Widget _buildEmailTF() {
     return Column(
@@ -32,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               color: Colors.white,
@@ -67,6 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: passwordController,
+
             obscureText: true,
             style: TextStyle(
               color: Colors.white,
@@ -136,10 +143,11 @@ class _LoginScreenState extends State<LoginScreen> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => PhotoList()),
-          );
+
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => PhotoList()),
+          // );
         } ,
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -258,6 +266,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+
+
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -310,7 +322,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       _buildPasswordTF(),
                       _buildForgotPasswordBtn(),
                       _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 25.0),
+                      width: double.infinity,
+                      child: RaisedButton(
+                        elevation: 5.0,
+                        onPressed: (){
+                          authService.signInWithEmailAndPassword(emailController.text, passwordController.text);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => PhotoList()),
+                          // );
+                        } ,
+                        padding: EdgeInsets.all(15.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        color: Colors.white,
+                        child: Text(
+                          'LOGIN',
+                          style: TextStyle(
+                            color: Color(0xFF527DAA),
+                            letterSpacing: 1.5,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'OpenSans',
+                          ),
+                        ),
+                      ),
+                    ),
                       _buildSignInWithText(),
                       _buildSocialBtnRow(),
                       _buildSignupBtn(),

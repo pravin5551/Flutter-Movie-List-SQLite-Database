@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_list/screens/login_screen.dart';
 import 'package:movie_list/screens/photo_list.dart';
 import 'package:movie_list/service/service.dart';
+import 'package:movie_list/service/wrapper.dart';
 import 'package:provider/provider.dart';
 
 void main() async{
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.yellow,
         backgroundColor: Colors.white,
       ),
-      home: LoginScreen(),
+      home: Wrapper(),
     ),);
   }
 }

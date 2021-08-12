@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movie_list/service/service.dart';
 import 'package:movie_list/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 import 'login_screen.dart';
 
@@ -15,6 +17,9 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   bool _rememberMe = false;
   bool isUploaded = false;
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
 
   Widget _buildEmailTF() {
@@ -31,6 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               color: Colors.white,
@@ -66,6 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: passwordController,
             obscureText: true,
             style: TextStyle(
               color: Colors.white,
@@ -264,6 +271,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+
+
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -315,10 +326,36 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       _buildPasswordTF(),
                       SizedBox(height: 20,),
-
-
                       _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 25.0),
+                      width: double.infinity,
+                      child: RaisedButton(
+                        elevation: 5.0,
+                        onPressed: () async{
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => LoginScreen()),
+                          // );
+                          await authService.createUserWithEmailAndPassword(emailController.text, passwordController.text);
+                        } ,
+                        padding: EdgeInsets.all(15.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        color: Colors.white,
+                        child: Text(
+                          'SIGNUP',
+                          style: TextStyle(
+                            color: Color(0xFF527DAA),
+                            letterSpacing: 1.5,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'OpenSans',
+                          ),
+                        ),
+                      ),
+                    ),
                       _buildSignInWithText(),
                       _buildSocialBtnRow(),
 
