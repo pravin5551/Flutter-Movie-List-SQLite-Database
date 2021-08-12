@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
     ],
 
      child : MaterialApp(
+
       title: 'Yellow Class',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       home: Wrapper(),
-    ),);
+      ),
+    );
   }
+
 }
