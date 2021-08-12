@@ -1,19 +1,18 @@
 
-import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:movie_list/screens/photo_list.dart';
-import 'package:movie_list/screens/signup_screen.dart';
 import 'package:movie_list/utils/constants.dart';
 
+import 'login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
+
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpPageState extends State<SignUpPage> {
   bool _rememberMe = false;
   bool isUploaded = false;
 
@@ -138,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PhotoList()),
+            MaterialPageRoute(builder: (context) => LoginScreen()),
           );
         } ,
         padding: EdgeInsets.all(15.0),
@@ -147,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         color: Colors.white,
         child: Text(
-          'LOGIN',
+          'SIGNUP',
           style: TextStyle(
             color: Color(0xFF527DAA),
             letterSpacing: 1.5,
@@ -172,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         SizedBox(height: 20.0),
         Text(
-          'Sign in with',
+          'Sign up with',
           style: kLabelStyle,
         ),
       ],
@@ -210,13 +209,13 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _buildSocialBtn(
-            () => print('Login with Facebook'),
+                () => print('Login with Facebook'),
             AssetImage(
               'assets/logos/facebook.jpg',
             ),
           ),
           _buildSocialBtn(
-            () => print('Login with Google'),
+                () => print('Login with Google'),
             AssetImage(
               'assets/logos/google.jpg',
             ),
@@ -240,7 +239,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-
+            TextSpan(
+              text: 'Sign Up',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),
@@ -294,7 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Sign In',
+                        'Sign Up',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'OpenSans',
@@ -308,18 +314,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 30.0,
                       ),
                       _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
+                      SizedBox(height: 20,),
+
+
                       _buildRememberMeCheckbox(),
                       _buildLoginBtn(),
                       _buildSignInWithText(),
                       _buildSocialBtnRow(),
-                      _buildSignupBtn(),
-                      ElevatedButton(onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignUpPage()),
-                        );
-                      }, child: Text("Sign Up"))
+
+
                     ],
                   ),
                 ),
@@ -331,7 +334,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
 }
-
-

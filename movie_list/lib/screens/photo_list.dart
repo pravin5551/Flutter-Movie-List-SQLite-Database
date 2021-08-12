@@ -7,16 +7,16 @@ import 'package:movie_list/utils/util.dart';
 import 'package:sqflite/sqflite.dart';
 
 
-class NoteList extends StatefulWidget {
+class PhotoList extends StatefulWidget {
 
 	@override
   State<StatefulWidget> createState() {
 
-    return NoteListState();
+    return PhotoListState();
   }
 }
 
-class NoteListState extends State<NoteList> {
+class PhotoListState extends State<PhotoList> {
 
 	DatabaseHelper databaseHelper = DatabaseHelper();
 	List<Photo> noteList;
@@ -47,7 +47,7 @@ class NoteListState extends State<NoteList> {
 		    tooltip: 'Add Movie',
 
 		    child: Icon(Icons.add),
-
+				backgroundColor: Colors.green,
 	    ),
     );
   }
@@ -64,7 +64,7 @@ class NoteListState extends State<NoteList> {
 					child: Row(
 						children: <Widget>[
 						 Container(
-									height: 200,
+									height: 180,
 									width: 150,
 									child: Utility.imageFromBase64String(this.noteList[position].movieImage),
 								),
@@ -80,6 +80,7 @@ class NoteListState extends State<NoteList> {
 											style: TextStyle(
 												fontSize: 16,
 												fontWeight: FontWeight.bold,
+												color: Colors.purpleAccent
 											),
 										),
 										SizedBox(
@@ -88,7 +89,7 @@ class NoteListState extends State<NoteList> {
 										Container(
 											width: 80,
 											child: Text(
-												this.noteList[position].director,
+												this.noteList[position].director,style: TextStyle(color: Colors.red),
 											),
 										),
 									],

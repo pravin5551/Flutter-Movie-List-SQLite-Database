@@ -32,7 +32,7 @@ class NoteDetailState extends State<NoteDetail> {
 
 	TextEditingController titleController = TextEditingController();
 	TextEditingController descriptionController = TextEditingController();
-	TextEditingController movieimageController = TextEditingController();
+
 
 	// String imageString;
 
@@ -44,8 +44,9 @@ class NoteDetailState extends State<NoteDetail> {
 		TextStyle textStyle = Theme.of(context).textTheme.title;
 
 		titleController.text = photo.movieTitle;
+
 		descriptionController.text = photo.director;
-		movieimageController.text = photo.movieImage;
+
 
 
 		return WillPopScope(
@@ -74,8 +75,6 @@ class NoteDetailState extends State<NoteDetail> {
 
 
 						// First Element
-						// Image.asset('assets/logos/google.jpg'),
-						//  Image.asset(photo.movieImage, height: 300,width: 300,),
 						Utility.imageFromBase64String(photo.movieImage),
 
 				    //Second Element
@@ -197,9 +196,9 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
 
-	void updateImage(){
-		photo.movieImage = movieimageController.text;
-	}
+	// void updateImage(){
+	// 	photo.movieImage = movieimageController.text;
+	// }
 
 	// Update the title of Note object
   void updateTitle(){
@@ -264,31 +263,7 @@ class NoteDetailState extends State<NoteDetail> {
 		);
 	}
 
-	Widget btnSubmit() {
-		return new Align(
-			alignment: Alignment.center,
-			child: InkWell(
-				onTap: () {
-					updateImage();
-				},
-				child: Container(
-					height: 40.0,
-					margin: EdgeInsets.all(10),
-					width: 100,
-					color: Colors.blueAccent,
-					child: Center(
-						child: Text(
-							"Save Product",
-							style: TextStyle(
-								color: Colors.white,
-								fontWeight: FontWeight.bold,
-							),
-						),
-					),
-				),
-			),
-		);
-	}
+
 
 	pickImageFromGallery() {
 		ImagePicker.pickImage(source: ImageSource.gallery).then((imgFile) {
@@ -297,9 +272,6 @@ class NoteDetailState extends State<NoteDetail> {
 
 		});
 	}
-
-
-
 }
 
 

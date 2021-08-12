@@ -22,17 +22,17 @@ class Photo {
 
 	String get date => _date;
 
-	//Here i'm giving priority that length of MovieName should be less than 255 characters
-	set movieTitle(String newTitle) {
-		if (newTitle.length <= 255) {
-			this._movieTitle = newTitle;
-		}
+
+	set movieTitle(String newMovieName) {
+
+			this._movieTitle = newMovieName;
+
 	}
 
-	set director(String newDescription) {
-		if (newDescription.length <= 255) {
-			this._director = newDescription;
-		}
+	set director(String newDirector) {
+
+			this._director = newDirector;
+
 	}
 
 	set movieImage(String newImage) {
