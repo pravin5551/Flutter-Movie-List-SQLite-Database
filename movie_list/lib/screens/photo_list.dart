@@ -54,7 +54,10 @@ class PhotoListState extends State<PhotoList> {
 
   ListView getNoteListView() {
 
-		TextStyle titleStyle = Theme.of(context).textTheme.subhead;
+		TextStyle titleStyle = ThemeData.dark().copyWith(
+			primaryColor: Colors.yellow,
+			backgroundColor: Colors.white,
+		) as TextStyle;
 
 		return ListView.builder(
 			itemCount: count,

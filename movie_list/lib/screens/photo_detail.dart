@@ -41,7 +41,10 @@ class NoteDetailState extends State<NoteDetail> {
 	@override
   Widget build(BuildContext context) {
 
-		TextStyle textStyle = Theme.of(context).textTheme.title;
+		TextStyle textStyle = ThemeData.dark().copyWith(
+			primaryColor: Colors.yellow,
+			backgroundColor: Colors.white,
+		) as TextStyle;
 
 		titleController.text = photo.movieTitle;
 
